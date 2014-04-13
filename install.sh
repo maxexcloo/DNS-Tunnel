@@ -118,6 +118,7 @@ wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/
 
 # Update Crontab
 wget -4 -O crontab https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/crontab
+sed -i 's/REPLACE/$1/g' crontab
 crontab -u root crontab
 
 # Change Directory
@@ -130,4 +131,4 @@ rm -rf temp
 dnstun-init
 
 # Run DNS Tunnel
-dnstun
+dnstun $1
