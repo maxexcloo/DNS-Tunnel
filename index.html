@@ -29,36 +29,44 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>DNS Tunnel is a simple set of scripts to automate the setup and maintenance of a DNS Tunnel system. Use cases include proxying country restricted services such as Netflix or bypassing censorship.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<ul>
+<li>A clean Debian 7 install.</li>
+<li>Full iptables support (some VPS providers do not offer this!)</li>
+<li>Currently the script is best used alone as it uses port 80 (HTTP), 443 (HTTPS/SSL) and 53 (DNS).</li>
+<li>For Netflix or Hulu forwarding, the VPS must have a US based IP.</li>
+</ul><h3>
+<a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a>Setup</h3>
+
+<ol>
+<li>Create a <a href="https://github.com/">GitHub</a> account if you do not have one already.</li>
+<li>Go to <a href="https://gist.github.com/">Gist</a> and create two files. Name them host and user. It's recommended that you set the Gist to private. An example Gist can be found <a href="https://gist.github.com/maxexcloo/10565742">here</a>.</li>
+<li>The hosts file should contain a list of hosts to forward and the user file should contain a list of IPs or hostnames to allow through the firewall (Dyanmic DNS works very well and it's recommended if your IP changes). Ensure there is a newline at the end of each file.</li>
+<li>Obtain the raw URL to your Gist and note it down. This can be found by clicking the "View Raw" icon on file in your Gist and copying the URL with everything after /raw/ removed. For example:
+&gt; <a href="https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host">https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host</a> becomes
+&gt; <a href="https://gist.githubusercontent.com/maxexcloo/10565742/raw/">https://gist.githubusercontent.com/maxexcloo/10565742/raw/</a>
+</li>
+<li>Log into your server as the root user and run the following commands, substituting in the raw Gist address you noted previously:
+wget <a href="https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh">https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh</a>
+bash install.sh NOTEDGISTURLHERE
+dnstun NOTEDGISTURLHERE</li>
+<li>Restart your server to confirm everything works.</li>
+<li>Finally, set the DNS of any machine in the user file to your server IP and any listed hosts will be forwarded.</li>
+</ol><h3>
+<a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
+
+<p>This project would not be possible without the excellent <a href="http://www.thekelleys.org.uk/dnsmasq/doc.html">dnsmasq</a> and <a href="https://github.com/dlundquist/sniproxy/">sniproxy</a> projects. Credit must also go to the <a href="http://corporate-gadfly.github.io/Tunlr-Clone/">Tunlr Clone</a> documentation as it was instrumental in guiding me with setup.</p>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="support" class="anchor" href="#support"><span class="octicon octicon-link"></span></a>Support</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>Feel free to post any issues you find in the project <a href="https://github.com/maxexcloo/DNS-Tunnel/issues">issue tracker</a> and I'll attempt to work through it with you. Pull requests are also very welcome!</p>
         </section>
 
         <aside id="sidebar">
