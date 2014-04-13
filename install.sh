@@ -120,14 +120,9 @@ wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/
 echo "*/15 * * * * /usr/local/bin/dnstun \"$CONFIGURATION_URL\" >/dev/null 2>&1" > crontab
 crontab -u root crontab
 
-# Change Directory
+# Change Directory & Remove Temp Directory
 cd ~
-
-# Remove Temp Directory
-#rm -rf temp
+rm -rf temp
 
 # Initialise DNS Tunnel
 dnstun-init
-
-# Run DNS Tunnel
-dnstun "$CONFIGURATION_URL"
