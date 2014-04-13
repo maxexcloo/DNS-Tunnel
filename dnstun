@@ -1,0 +1,102 @@
+#!/bin/bash
+# Update Firewall & Tunnel Configuration
+
+#################
+# Configuration #
+#################
+
+CFGDIR=/etc/dnstun
+CFGURL=$1
+
+################
+# Update Lists #
+################
+
+# Download Host List
+wget -O $CFGDIR/host $CFGURL/host
+
+# Download Server File
+wget -O $CFGDIR/server $CFGURL/server
+
+# Download User List
+wget -O $CFGDIR/user $CFGURL/user
+
+# Source Server File
+source $CFGDIR/server
+
+################
+# Update Hosts #
+################
+
+# Check Configuration
+CONFCS="$(cksum $DNSMASQ)"
+
+# Write Configuration
+cat << EOF > $DNSMASQ
+bogus-priv
+domain-needed
+no-poll
+no-resolv
+server=8.8.8.8
+server=8.8.4.4
+EOF
+
+# Loop Over Host List
+while read i; do
+	# Add User To Configuration
+	echo "address=/$i/$SERVER" >> $DNSMASQ
+done < $CFGDIR/host
+
+# Check For Changes
+if [ "$CONFCS" != "$(cksum $DNSMASQ)" ]; then
+	# Restart Service
+	service dnsmasq restart
+fi
+
+# Check Configuration
+CONFCS="$(cksum $SNIPROXY)"
+
+# Write Configuration
+cat << EOF > $SNIPROXY
+pidfile /var/tmp/sniproxy.pid
+user daemon
+
+listener 80 {
+	proto http
+}
+
+listener 443 {
+	proto tls
+}
+
+table {
+EOF
+
+# Loop Over Host List
+while read i; do
+	# Add User To Configuration
+	echo "$i *" >> $SNIPROXY
+done < $CFGDIR/host
+echo "}" >> $SNIPROXY
+
+# Check For Changes
+if [ "$CONFCS" != "$(cksum $SNIPROXY)" ]; then
+	# Stop Service
+	killall sniproxy
+
+	# Start Service
+	sniproxy
+fi
+
+################
+# Update Users #
+################
+
+# Clear Firewall
+iptables -F DYNAMIC
+
+# Loop Over User List
+while read i; do
+	# Add User To Firewall
+	iptables -A DYNAMIC -s "$i" -j ACCEPT
+done < $CFGDIR/user

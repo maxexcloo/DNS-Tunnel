@@ -1,0 +1,1 @@
+*/15 * * * * /usr/local/bin/dnstun "https://gist.githubusercontent.com/maxexcloo/8aa01fe54ae96c46abdf/raw" >/dev/null 2>&1

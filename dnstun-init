@@ -1,0 +1,15 @@
+#!/bin/sh
+iptables -N DNSTUN
+iptables -N DYNAMIC
+iptables -A INPUT -p tcp --dport 53 -j DNSTUN
+iptables -A INPUT -p tcp --dport 80 -j DNSTUN
+iptables -A INPUT -p tcp --dport 443 -j DNSTUN
+iptables -A INPUT -p udp --dport 53 -j DNSTUN
+iptables -A INPUT -p tcp --dport 53 -j DROP
+iptables -A INPUT -p tcp --dport 80 -j DROP
+iptables -A INPUT -p tcp --dport 443 -j DROP
+iptables -A INPUT -p udp --dport 53 -j DROP
+iptables -A DNSTUN -j DYNAMIC
+iptables -F DYNAMIC
+sniproxy
+dnstun
