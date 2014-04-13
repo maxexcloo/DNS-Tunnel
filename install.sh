@@ -1,15 +1,28 @@
 #!/bin/sh
 # Downloads and installs DNS Tunnel.
 
-# Configuration Variables
-DEBIAN_FRONTEND=noninteractive
-SNIPROXY_VERSION=0.3.2
-
 # Check Root
 if [[ $EUID -ne 0 ]]; then
 	echo "This script must be run as root."
 	exit 1
 fi
+
+# Check Arguments
+if [ -z "$1" ]; then
+	echo "No configuration URL supplied."
+	exit 1
+fi
+
+# Check Configuration URL
+if ! curl -f -I -o /dev/null -s --head "$1"; then
+	echo "Invalid configuration URL supplied."
+	exit 1
+fi
+
+# Configuration Variables
+CONFIGURATION_URL=$1
+DEBIAN_FRONTEND=noninteractive
+SNIPROXY_VERSION=0.3.2
 
 # Create & Swap To Directory
 mkdir ~/temp
@@ -106,6 +119,12 @@ wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/
 # Update Crontab
 wget -4 -O crontab https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/crontab
 crontab -u root crontab
+
+# Change Directory
+cd ~
+
+# Remove Temp Directory
+rm -rf temp
 
 # Initialise DNS Tunnel
 dnstun-init
