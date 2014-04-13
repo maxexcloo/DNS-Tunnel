@@ -97,4 +97,3 @@ while read i; do
 	# Add User To Firewall
 	iptables -A DYNAMIC -s "$i" -j ACCEPT
 done < $CFGDIR/user
-f
