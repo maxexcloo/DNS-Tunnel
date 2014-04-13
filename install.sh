@@ -20,6 +20,7 @@ fi
 #fi
 
 # Configuration Variables
+CONFIGURATION_DIR=/etc/dnstun
 CONFIGURATION_URL="$1"
 DEBIAN_FRONTEND=noninteractive
 SNIPROXY_VERSION=0.3.2
@@ -110,8 +111,10 @@ wget -4 -O /usr/local/bin/dnstun https://raw.githubusercontent.com/maxexcloo/DNS
 wget -4 -O /usr/local/bin/dnstun-init https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun-init
 chmod +x /usr/local/bin/dnstun /usr/local/bin/dnstun-init
 
-# Make Directory
+# Make Directory & Download Files
 mkdir /etc/dnstun
+wget -O $CONFIGURATION_DIR/host $CONFIGURATION_URL/host
+wget -O $CONFIGURATION_DIR/user $CONFIGURATION_URL/user
 
 # Update Boot Script
 wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/rc.local
