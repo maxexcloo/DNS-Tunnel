@@ -14,10 +14,10 @@ if [ -z "$1" ]; then
 fi
 
 # Check Configuration URL
-if ! curl -f -I -o /dev/null -s --head "$1"; then
-	echo "Invalid configuration URL supplied."
-	exit 1
-fi
+#if ! curl -f -I -o /dev/null -s --head "$1"; then
+#	echo "Invalid configuration URL supplied."
+#	exit 1
+#fi
 
 # Configuration Variables
 CONFIGURATION_URL=$1
@@ -118,17 +118,17 @@ wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/
 
 # Update Crontab
 wget -4 -O crontab https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/crontab
-sed -i 's/REPLACE/$1/g' crontab
+sed -i "s/REPLACE/$CONFIGURATION_URL/g" crontab
 crontab -u root crontab
 
 # Change Directory
 cd ~
 
 # Remove Temp Directory
-rm -rf temp
+#rm -rf temp
 
 # Initialise DNS Tunnel
 dnstun-init
 
 # Run DNS Tunnel
-dnstun $1
+dnstun $CONFIGURATION_URL
