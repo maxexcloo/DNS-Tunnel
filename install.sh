@@ -117,8 +117,7 @@ mkdir /etc/dnstun
 wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/rc.local
 
 # Update Crontab
-wget -4 -O crontab https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/crontab
-sed -i "s/UPDATE/$CONFIGURATION_URL/g" crontab
+echo "*/15 * * * * /usr/local/bin/dnstun \"$CONFIGURATION_URL\" >/dev/null 2>&1" > crontab
 crontab -u root crontab
 
 # Change Directory
