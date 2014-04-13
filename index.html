@@ -58,22 +58,22 @@
 <li>Create a <a href="https://github.com/">GitHub</a> account if you do not have one already.</li>
 <li>Go to <a href="https://gist.github.com/">Gist</a> and create two files named host and user. It's recommended that you set the Gist to private. An example Gist can be found <a href="https://gist.github.com/maxexcloo/10565742">here</a>.</li>
 <li>The hosts file should contain a list of hosts to forward and the user file should contain a list of IPs or hostnames to allow through the firewall (Dynamic DNS works very well here and it's recommended). Ensure there is a newline at the end of each file.</li>
-<li>
-<p>Obtain the raw URL of your Gist and note it down. This can be found by clicking the "View Raw" icon on any file in your Gist and copying the URL with everything after /raw/ removed.</p>
-
-<p>For example:
-<a href="https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host">https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host</a>
+<li>Obtain the raw URL of your Gist and note it down. This can be found by clicking the "View Raw" icon on any file in your Gist and copying the URL with everything after /raw/ removed.</li>
+</ol><pre><code>For example:
+https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host
 Becomes:
-<a href="https://gist.githubusercontent.com/maxexcloo/10565742/raw/">https://gist.githubusercontent.com/maxexcloo/10565742/raw/</a></p>
-</li>
-<li>
-<p>Log into your server as the root user and run the following commands, substituting in the raw Gist address you noted previously:</p>
+https://gist.githubusercontent.com/maxexcloo/10565742/raw/
+</code></pre>
 
-<p>wget <a href="https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh">https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh</a>
+<ol>
+<li>Log into your server as the root user and run the following commands, substituting in the raw Gist address you noted previously:</li>
+</ol><pre><code>wget https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh
 bash install.sh NOTEDGISTURLHERE
-dnstun NOTEDGISTURLHERE</p>
-</li>
-<li><p>Restart your server to confirm everything works.</p></li>
+dnstun NOTEDGISTURLHERE
+</code></pre>
+
+<ol>
+<li>Restart your server to confirm everything works.</li>
 <li>Finally, set the DNS of any machine allowed in the user file to your servers IP address. All hosts in the host file will be forwarded. A guide to changing your DNS server can be found <a href="http://www.howtogeek.com/167533/the-ultimate-guide-to-changing-your-dns-server/">here</a>.</li>
 </ol><h3>
 <a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
