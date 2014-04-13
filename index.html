@@ -1,34 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <title>DNS Tunnel by maxexcloo</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
-    <header>
-      <div class="inner">
-        <h1>DNS Tunnel</h1>
-        <h2>Simple scripts for running an automated DNS Tunnel system.</h2>
-        <a href="https://github.com/maxexcloo/DNS-Tunnel" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/maxexcloo/DNS-Tunnel">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/maxexcloo/DNS-Tunnel/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/maxexcloo/DNS-Tunnel/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h3>
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>DNS Tunnel</h1>
+          <p>Simple scripts for running an automated DNS Tunnel system.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/maxexcloo">maxexcloo</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h3>
 <a name="introduction" class="anchor" href="#introduction"><span class="octicon octicon-link"></span></a>Introduction</h3>
 
 <p>DNS Tunnel is a simple set of scripts to automate the setup and maintenance of a DNS Tunnel system. Use cases include proxying country restricted services such as Netflix or bypassing censorship.</p>
@@ -38,7 +48,7 @@
 
 <ul>
 <li>A clean Debian 7 install.</li>
-<li>Full iptables support (some VPS providers do not offer this!)</li>
+<li>Full iptables support (note that some VPS providers do not offer this!)</li>
 <li>Currently the script is best used alone as it uses port 80 (HTTP), 443 (HTTPS/SSL) and 53 (DNS).</li>
 <li>For Netflix or Hulu forwarding, the VPS must have a US based IP.</li>
 </ul><h3>
@@ -46,18 +56,25 @@
 
 <ol>
 <li>Create a <a href="https://github.com/">GitHub</a> account if you do not have one already.</li>
-<li>Go to <a href="https://gist.github.com/">Gist</a> and create two files. Name them host and user. It's recommended that you set the Gist to private. An example Gist can be found <a href="https://gist.github.com/maxexcloo/10565742">here</a>.</li>
-<li>The hosts file should contain a list of hosts to forward and the user file should contain a list of IPs or hostnames to allow through the firewall (Dyanmic DNS works very well and it's recommended if your IP changes). Ensure there is a newline at the end of each file.</li>
-<li>Obtain the raw URL to your Gist and note it down. This can be found by clicking the "View Raw" icon on file in your Gist and copying the URL with everything after /raw/ removed. For example:
-&gt; <a href="https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host">https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host</a> becomes
-&gt; <a href="https://gist.githubusercontent.com/maxexcloo/10565742/raw/">https://gist.githubusercontent.com/maxexcloo/10565742/raw/</a>
+<li>Go to <a href="https://gist.github.com/">Gist</a> and create two files named host and user. It's recommended that you set the Gist to private. An example Gist can be found <a href="https://gist.github.com/maxexcloo/10565742">here</a>.</li>
+<li>The hosts file should contain a list of hosts to forward and the user file should contain a list of IPs or hostnames to allow through the firewall (Dynamic DNS works very well here and it's recommended). Ensure there is a newline at the end of each file.</li>
+<li>
+<p>Obtain the raw URL of your Gist and note it down. This can be found by clicking the "View Raw" icon on any file in your Gist and copying the URL with everything after /raw/ removed.</p>
+
+<p>For example:
+<a href="https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host">https://gist.githubusercontent.com/maxexcloo/10565742/raw/7be4e1bd240341786011545363cf1604bc929495/host</a>
+Becomes:
+<a href="https://gist.githubusercontent.com/maxexcloo/10565742/raw/">https://gist.githubusercontent.com/maxexcloo/10565742/raw/</a></p>
 </li>
-<li>Log into your server as the root user and run the following commands, substituting in the raw Gist address you noted previously:
-wget <a href="https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh">https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh</a>
+<li>
+<p>Log into your server as the root user and run the following commands, substituting in the raw Gist address you noted previously:</p>
+
+<p>wget <a href="https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh">https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/install.sh</a>
 bash install.sh NOTEDGISTURLHERE
-dnstun NOTEDGISTURLHERE</li>
-<li>Restart your server to confirm everything works.</li>
-<li>Finally, set the DNS of any machine in the user file to your server IP and any listed hosts will be forwarded.</li>
+dnstun NOTEDGISTURLHERE</p>
+</li>
+<li><p>Restart your server to confirm everything works.</p></li>
+<li>Finally, set the DNS of any machine allowed in the user file to your servers IP address. All hosts in the host file will be forwarded. A guide to changing your DNS server can be found <a href="http://www.howtogeek.com/167533/the-ultimate-guide-to-changing-your-dns-server/">here</a>.</li>
 </ol><h3>
 <a name="credits" class="anchor" href="#credits"><span class="octicon octicon-link"></span></a>Credits</h3>
 
@@ -67,25 +84,10 @@ dnstun NOTEDGISTURLHERE</li>
 <a name="support" class="anchor" href="#support"><span class="octicon octicon-link"></span></a>Support</h3>
 
 <p>Feel free to post any issues you find in the project <a href="https://github.com/maxexcloo/DNS-Tunnel/issues">issue tracker</a> and I'll attempt to work through it with you. Pull requests are also very welcome!</p>
-        </section>
+      </section>
 
-        <aside id="sidebar">
-          <a href="https://github.com/maxexcloo/DNS-Tunnel/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/maxexcloo/DNS-Tunnel/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/maxexcloo/DNS-Tunnel"></a> is maintained by <a href="https://github.com/maxexcloo">maxexcloo</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
     </div>
-
-  
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
