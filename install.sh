@@ -20,7 +20,7 @@ fi
 #fi
 
 # Configuration Variables
-CONFIGURATION_URL=$1
+CONFIGURATION_URL="$1"
 DEBIAN_FRONTEND=noninteractive
 SNIPROXY_VERSION=0.3.2
 
@@ -118,7 +118,7 @@ wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/
 
 # Update Crontab
 wget -4 -O crontab https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/crontab
-sed -i "s/REPLACE/$CONFIGURATION_URL/g" crontab
+sed -i "s/UPDATE/$CONFIGURATION_URL/g" crontab
 crontab -u root crontab
 
 # Change Directory
@@ -131,4 +131,4 @@ cd ~
 dnstun-init
 
 # Run DNS Tunnel
-dnstun $CONFIGURATION_URL
+dnstun "$CONFIGURATION_URL"
