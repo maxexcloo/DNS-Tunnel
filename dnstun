@@ -7,6 +7,9 @@
 
 CFGDIR=/etc/dnstun
 CFGURL=$1
+DNSMASQ="/etc/dnsmasq.conf"
+SNIPROXY="/etc/sniproxy.conf"
+SERVER=$(ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}')
 
 ################
 # Update Lists #
@@ -15,14 +18,8 @@ CFGURL=$1
 # Download Host List
 wget -O $CFGDIR/host $CFGURL/host
 
-# Download Server File
-wget -O $CFGDIR/server $CFGURL/server
-
 # Download User List
 wget -O $CFGDIR/user $CFGURL/user
-
-# Source Server File
-source $CFGDIR/server
 
 ################
 # Update Hosts #
@@ -100,3 +97,4 @@ while read i; do
 	# Add User To Firewall
 	iptables -A DYNAMIC -s "$i" -j ACCEPT
 done < $CFGDIR/user
+f
