@@ -30,9 +30,9 @@ mkdir udns
 cd udns
 
 # Download Source
-wget http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4-1.dsc
-wget http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4.orig.tar.gz
-wget http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4-1.debian.tar.gz
+wget -4 http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4-1.dsc
+wget -4 http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4.orig.tar.gz
+wget -4 http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4-1.debian.tar.gz
 
 # Extract Source
 tar xfz udns_0.4.orig.tar.gz
@@ -61,7 +61,7 @@ mkdir sniproxy
 cd sniproxy
 
 # Download Source
-wget -O sniproxy.tar.gz https://github.com/dlundquist/sniproxy/archive/$SNIPROXY_VERSION.tar.gz
+wget -4 -O sniproxy.tar.gz https://github.com/dlundquist/sniproxy/archive/$SNIPROXY_VERSION.tar.gz
 
 # Extract Source
 tar xfvz sniproxy.tar.gz
@@ -93,18 +93,18 @@ apt-get -q -y install dnsmasq
 ################
 
 # Download & Install
-wget -O /usr/local/bin/dnstun https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun
-wget -O /usr/local/bin/dnstun-init https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun-init
+wget -4 -O /usr/local/bin/dnstun https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun
+wget -4 -O /usr/local/bin/dnstun-init https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun-init
 chmod +x /usr/local/bin/dnstun /usr/local/bin/dnstun-init
 
 # Make Directory
 mkdir /etc/dnstun
 
 # Update Boot Script
-wget -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/rc.local
+wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/rc.local
 
 # Update Crontab
-wget -O crontab https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/crontab
+wget -4 -O crontab https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/crontab
 crontab -u root crontab
 
 # Initialise DNS Tunnel
