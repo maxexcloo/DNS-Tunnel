@@ -106,13 +106,15 @@ apt-get -q -y install dnsmasq
 ## DNS Tunnel ##
 ################
 
-# Download & Install
+# Download & Set Permissions
 wget -4 -O /usr/local/bin/dnstun https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun
 wget -4 -O /usr/local/bin/dnstun-init https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun-init
 chmod +x /usr/local/bin/dnstun /usr/local/bin/dnstun-init
 
-# Make Directory & Download Files
+# Make Directory
 mkdir /etc/dnstun
+
+# Download Configuration
 wget -O $CONFIGURATION_DIR/host $CONFIGURATION_URL/host
 wget -O $CONFIGURATION_DIR/user $CONFIGURATION_URL/user
 
@@ -129,3 +131,6 @@ rm -rf temp
 
 # Initialise DNS Tunnel
 dnstun-init
+
+# Start DNS Tunnel
+dnstun "$CONFIGURATION_URL"
