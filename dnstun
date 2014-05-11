@@ -72,7 +72,7 @@ EOF
 # Loop Over Host List
 while read i; do
 	# Add User To Configuration
-	echo "\t$i *" >> $SNIPROXY
+	echo "$i *" >> $SNIPROXY
 done < $CFGDIR/host
 echo "}" >> $SNIPROXY
 
