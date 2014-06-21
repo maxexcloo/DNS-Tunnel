@@ -40,7 +40,7 @@ EOF
 
 # Loop Over Host List
 while read i; do
-	# Add User To Configuration
+	# Add Host To Configuration
 	echo "address=/$i/$SERVER" >> $DNSMASQ
 done < $CFGDIR/host
 
@@ -71,7 +71,7 @@ EOF
 
 # Loop Over Host List
 while read i; do
-	# Add User To Configuration
+	# Add Host To Configuration
 	echo "$i *" >> $SNIPROXY
 done < $CFGDIR/host
 echo "}" >> $SNIPROXY

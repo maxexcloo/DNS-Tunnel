@@ -44,18 +44,18 @@ mkdir udns
 cd udns
 
 # Download Source
-wget -4 http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4-1.dsc
-wget -4 http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4.orig.tar.gz
-wget -4 http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4-1.debian.tar.gz
+wget http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4-1.dsc
+wget http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4.orig.tar.gz
+wget http://archive.ubuntu.com/ubuntu/pool/universe/u/udns/udns_0.4-1.debian.tar.gz
 
 # Extract Source
-tar xfz udns_0.4.orig.tar.gz
+tar xfz udns_*.orig.tar.gz
 
 # Change Directory
-cd udns-0.4/
+cd udns-*/
 
 # Extract Source
-tar xfz ../udns_0.4-1.debian.tar.gz
+tar xfz ../udns_*.debian.tar.gz
 
 # Build Package
 dpkg-buildpackage
@@ -75,10 +75,10 @@ mkdir sniproxy
 cd sniproxy
 
 # Download Source
-wget -4 -O sniproxy.tar.gz https://github.com/dlundquist/sniproxy/archive/$SNIPROXY_VERSION.tar.gz
+wget https://www.github.com/dlundquist/sniproxy/archive/$SNIPROXY_VERSION.tar.gz
 
 # Extract Source
-tar xfvz sniproxy.tar.gz
+tar xfz $SNIPROXY_VERSION.tar.gz
 
 # Change To Directory
 cd sniproxy-*
@@ -107,8 +107,8 @@ apt-get -q -y install dnsmasq
 ################
 
 # Download & Set Permissions
-wget -4 -O /usr/local/bin/dnstun https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun
-wget -4 -O /usr/local/bin/dnstun-init https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun-init
+wget -O /usr/local/bin/dnstun https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun
+wget -O /usr/local/bin/dnstun-init https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun-init
 chmod +x /usr/local/bin/dnstun /usr/local/bin/dnstun-init
 
 # Make Directory
@@ -119,7 +119,7 @@ wget -O $CONFIGURATION_DIR/host $CONFIGURATION_URL/host
 wget -O $CONFIGURATION_DIR/user $CONFIGURATION_URL/user
 
 # Update Boot Script
-wget -4 -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/rc.local
+wget -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/rc.local
 
 # Update Crontab
 echo "*/15 * * * * /usr/local/bin/dnstun \"$CONFIGURATION_URL\" >/dev/null 2>&1" > crontab
