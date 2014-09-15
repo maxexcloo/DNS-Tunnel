@@ -1,5 +1,5 @@
 #!/bin/sh
-# Downloads and installs DNS Tunnel.
+# Download & Install DNS Tunnel
 
 # Check Root
 if [[ $EUID -ne 0 ]]; then
@@ -23,7 +23,7 @@ fi
 CONFIGURATION_DIR=/etc/dnstun
 CONFIGURATION_URL="$1"
 DEBIAN_FRONTEND=noninteractive
-SNIPROXY_VERSION=0.3.2
+SNIPROXY_VERSION=0.3.5
 
 # Create & Swap To Directory
 mkdir ~/temp
@@ -89,9 +89,6 @@ dpkg-buildpackage
 # Install Package
 dpkg -i ../sniproxy_*.deb
 
-# Exit Directory
-cd ~/temp
-
 #############
 ## DNSMasq ##
 #############
@@ -106,9 +103,12 @@ apt-get -q -y install dnsmasq
 ## DNS Tunnel ##
 ################
 
-# Download & Set Permissions
+# Download
+wget -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/rc.local
 wget -O /usr/local/bin/dnstun https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun
 wget -O /usr/local/bin/dnstun-init https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/dnstun-init
+
+# Set Permissions
 chmod +x /usr/local/bin/dnstun /usr/local/bin/dnstun-init
 
 # Make Directory
@@ -117,9 +117,6 @@ mkdir /etc/dnstun
 # Download Configuration
 wget -O $CONFIGURATION_DIR/host $CONFIGURATION_URL/host
 wget -O $CONFIGURATION_DIR/user $CONFIGURATION_URL/user
-
-# Update Boot Script
-wget -O /etc/rc.local https://raw.githubusercontent.com/maxexcloo/DNS-Tunnel/master/conf/rc.local
 
 # Update Crontab
 echo "*/15 * * * * /usr/local/bin/dnstun \"$CONFIGURATION_URL\" >/dev/null 2>&1" > crontab

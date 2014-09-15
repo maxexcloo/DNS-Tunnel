@@ -1,4 +1,5 @@
 #!/bin/sh
+# Initialize Firewall & Start Services
 iptables -N DNSTUN
 iptables -N DYNAMIC
 iptables -A INPUT -p tcp --dport 53 -j DNSTUN

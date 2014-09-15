@@ -9,7 +9,8 @@ CFGDIR=/etc/dnstun
 CFGURL=$1
 DNSMASQ="/etc/dnsmasq.conf"
 SNIPROXY="/etc/sniproxy.conf"
-SERVER=$(ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}')
+#IP=$(ifconfig | grep 'inet addr:' | grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}')
+IP=$(curl -s http://myip.enix.org/REMOTE_ADDR)
 
 ################
 # Update Lists #
@@ -41,7 +42,7 @@ EOF
 # Loop Over Host List
 while read i; do
 	# Add Host To Configuration
-	echo "address=/$i/$SERVER" >> $DNSMASQ
+	echo "address=/$i/$IP" >> $DNSMASQ
 done < $CFGDIR/host
 
 # Check For Changes
